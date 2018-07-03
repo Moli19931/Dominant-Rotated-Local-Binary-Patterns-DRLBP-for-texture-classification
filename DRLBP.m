@@ -1,0 +1,142 @@
+%r=1,p=8
+img=imread('063.png');
+grayImage=double(rgb2gray(img));
+[x,y]=size(grayImage);
+output=zeros(x,y);
+for i=2:x-1
+    for j=2:y-1
+        IC=grayImage(i,j);
+        I0=grayImage(i,j+1);
+        I1=grayImage(i+1,j+1);
+        I2=grayImage(i+1,j);
+        I3=grayImage(i+1,j-1);
+        I4=grayImage(i,j-1);
+        I5=grayImage(i-1,j-1);
+        I6=grayImage(i-1,j);
+        I7=grayImage(i-1,j+1);
+        [D,I]=max([abs(IC-I0),abs(IC-I1),abs(IC-I2),abs(IC-I3),abs(IC-I4),abs(IC-I5),abs(IC-I6),abs(IC-I7)]);
+        if I==1
+            g0=grayImage(i,j+1);
+            g1=grayImage(i+1,j+1);
+            g2=grayImage(i+1,j);
+            g3=grayImage(i+1,j-1);
+            g4=grayImage(i,j-1);
+            g5=grayImage(i-1,j-1);
+            g6=grayImage(i-1,j);
+            g7=grayImage(i-1,j+1);
+        end
+         if I==2
+            g0=grayImage(i+1,j+1);
+            g1=grayImage(i+1,j);
+            g2=grayImage(i+1,j-1);
+            g3=grayImage(i,j-1);
+            g4=grayImage(i-1,j-1);
+            g5=grayImage(i-1,j);
+            g6=grayImage(i-1,j+1);
+            g7=grayImage(i,j+1);
+             
+         end
+         if I==3
+            g0=grayImage(i+1,j);
+            g1=grayImage(i+1,j-1);
+            g2=grayImage(i,j-1);
+            g3=grayImage(i-1,j-1);
+            g4=grayImage(i-1,j);
+            g5=grayImage(i-1,j+1);
+            g6=grayImage(i,j+1);
+            g7=grayImage(i+1,j+1);
+         end
+         if I==4
+            g0=grayImage(i+1,j-1);
+            g1=grayImage(i,j-1);
+            g2=grayImage(i-1,j-1);
+            g3=grayImage(i-1,j);
+            g4=grayImage(i-1,j+1);
+            g5=grayImage(i,j+1);
+            g6=grayImage(i+1,j+1);
+            g7=grayImage(i+1,j);
+         end
+         if I==1
+            g0=grayImage(i,j-1);
+            g1=grayImage(i-1,j-1);
+            g2=grayImage(i-1,j);
+            g3=grayImage(i-1,j+1);
+            g4=grayImage(i,j+1);
+            g5=grayImage(i+1,j+1);
+            g6=grayImage(i+1,j);
+            g7=grayImage(i+1,j-1);
+         end
+         if I==6
+            g0=grayImage(i-1,j-1);
+            g1=grayImage(i-1,j);
+            g2=grayImage(i-1,j+1);
+            g3=grayImage(i,j+1);
+            g4=grayImage(i+1,j+1);
+            g5=grayImage(i+1,j);
+            g6=grayImage(i+1,j-1);
+            g7=grayImage(i,j-1);
+         end
+         if I==7
+            g0=grayImage(i-1,j);
+            g1=grayImage(i-1,j+1);
+            g2=grayImage(i,j+1);
+            g3=grayImage(i+1,j+1);
+            g4=grayImage(i+1,j);
+            g5=grayImage(i+1,j-1);
+            g6=grayImage(i,j-1);
+            g7=grayImage(i-1,j-1);
+         end
+         if I==8
+            g0=grayImage(i-1,j+1);
+            g1=grayImage(i,j+1);
+            g2=grayImage(i+1,j+1);
+            g3=grayImage(i+1,j);
+            g4=grayImage(i+1,j-1);
+            g5=grayImage(i,j-1);
+            g6=grayImage(i-1,j-1);
+            g7=grayImage(i-1,j);
+        end
+       if(g0-IC)<0
+            g00=0;
+        else
+            g00=1;
+       end
+        if(g1-IC)<0
+            g01=0;
+        else
+            g01=1;
+        end
+        if(g2-IC)<0
+            g02=0;
+        else
+            g02=1;
+        end
+        if(g3-IC)<0
+            g03=0;
+        else
+            g03=1;
+        end
+        if(g4-IC)<0
+            g04=0;
+        else
+            g04=1;
+        end
+        if(g5-IC)<0
+            g05=0;
+        else
+            g05=1;
+        end
+        if(g6-IC)<0
+            g06=0;
+        else
+            g06=1;
+        end
+        if(g7-IC)<0
+            g07=0;
+        else
+            g07=1;
+        end
+       output(i,j)=g00+(g01*2)+(g02*4)+(g03*8)+(g04*16)+(g05*32)+(g06*64)+(g07*128); 
+    end
+end
+imshow(mat2gray(output));
